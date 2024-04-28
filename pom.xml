@@ -57,7 +57,7 @@
 					<registry>ghcr.io</registry>
 					<images>
 						<image>
-							<name>fumnak/hello-app-spring</name>
+							<name>nakagaito-ryo/hello-app-spring</name>
 							<build>
 								<tags>
 									<tag>${image.tag}</tag>
