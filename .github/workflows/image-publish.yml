@@ -43,16 +43,16 @@ jobs:
 
     - name: Build
       run: |
-        docker build -t asia-northeast1-docker.pkg.dev/test-circleci-421201/test-circleci/example:${{ env.TAG }} ./    
+        docker build -t asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/example:${{ env.TAG }} ./    
     
     - name: Push
       run: |
-        docker push asia-northeast1-docker.pkg.dev/test-circleci-421201/test-circleci/example:${{ env.TAG }}
+        docker push asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/example:${{ env.TAG }}
 
     - name: Deploy to Cloud Run
       run: |
           gcloud run deploy sample-docker \
-            --image asia-northeast1-docker.pkg.dev/test-circleci-421201/test-circleci/example:${{ env.TAG }} \
+            --image asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/example:${{ env.TAG }} \
             --port 8080 \
             --region asia-northeast1 \
             --platform=managed \
