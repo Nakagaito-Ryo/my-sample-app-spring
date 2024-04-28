@@ -76,7 +76,7 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/FumNak/my-sample-app-spring</url>
+			<url>https://maven.pkg.github.com/nakagaito-ryo/my-sample-app-spring</url>
 		</repository>
 	</distributionManagement>
 
