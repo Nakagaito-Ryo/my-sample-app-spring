@@ -24,7 +24,7 @@ jobs:
             maven-{{checksum "pom.xml"}}
           expire: 1d
   
-  pull_and_push:
+  deploy_to_gcp:
     docker: 
       - image: google/cloud-sdk:latest
     steps:
@@ -43,9 +43,12 @@ jobs:
             gcloud auth configure-docker asia-northeast1-docker.pkg.dev
             docker tag ghcr.io/${GITHUB_USER}/hello-app-spring  asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
             docker push asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
+      - run:
+          name: Deploy to Cloud Run
+          command: gcloud run deploy test-service --project=test-circleci-421201 --region=asia-northeast1 --image=asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
 
 workflows: 
   sample_workflow:
     jobs:
       - build_and_push
-      - pull_and_push
+      - deploy_to_gcp
