@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Push Image to GCP Artifact Registry
           command: |
-            docker-credential-gcr configure-docker asia-northeast1-docker.pkg.dev
+            docker login -u _json_key -p ${GCP_ACCESS_TOKEN} https://asia-northeast1-docker.pkg.dev/test-circleci-421201
             docker tag ghcr.io/${GITHUB_USER}/hello-app-spring  asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
             docker push asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
       - save_cache:
