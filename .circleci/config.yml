@@ -21,6 +21,11 @@ jobs:
           command: |
             docker pull ghcr.io/${GITHUB_USER}/hello-app-spring
             docker image ls
+      - run:
+          name: Push Image to GCP Artifact Registry
+          command: |
+            docker tag ghcr.io/${GITHUB_USER}/hello-app-spring  asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
+            docker push asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
       - save_cache:
           paths:
             - ~/.m2
