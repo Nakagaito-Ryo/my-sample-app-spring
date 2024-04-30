@@ -26,7 +26,7 @@ jobs:
   
   pull_and_push:
     docker: 
-      -image: google/cloud-sdk:latest
+      - image: google/cloud-sdk:latest
     steps:
       - setup_remote_docker
       - run:
