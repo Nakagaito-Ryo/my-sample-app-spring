@@ -45,7 +45,15 @@ jobs:
             docker push asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
       - run:
           name: Deploy to Cloud Run
-          command: gcloud run deploy test-service --project=test-circleci-421201 --region=asia-northeast1 --image=asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
+          command: |
+            gcloud run deploy sample-docker \
+            --image asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/example \
+            --port 8080 \
+            --region asia-northeast1 \
+            --platform=managed \
+            --allow-unauthenticated \
+            --quiet \
+            --set-env-vars=ENV=PRODUCTION
 
 workflows: 
   sample_workflow:
