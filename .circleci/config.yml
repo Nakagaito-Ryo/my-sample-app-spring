@@ -28,6 +28,7 @@ jobs:
     docker: 
       - image: google/cloud-sdk:latest
     steps:
+      - checkout
       - setup_remote_docker
       - run:
           name: Pull Container Image
@@ -38,6 +39,7 @@ jobs:
       - run:
           name: Push Image to GCP Artifact Registry
           command: |
+            gcloud auth activate-service-account --key-file=./.circleci/test-circleci-421201-1ce3d35b66ef.json
             gcloud auth configure-docker asia-northeast1-docker.pkg.dev
             gcloud auth print-access-token
             docker login -u _json_key -p "$(gcloud auth print-access-token)" https://asia-northeast1.pkg.dev/test-circleci-421201
