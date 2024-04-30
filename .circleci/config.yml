@@ -1,6 +1,7 @@
 version: 2.1
+
 jobs:
-  build:
+  build_and_push:
     docker:
       - image: cimg/openjdk:21.0.2
     steps:
@@ -16,6 +17,18 @@ jobs:
           command: |
             docker login ghcr.io -u ${GITHUB_USER} -p ${GITHUB_TOKEN}
             mvn -X -B package docker:build docker:push -Dimage.tag=`date +%Y%m%dT%H%M%S-%3N` --file pom.xml -s ./.circleci/settings.xml
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: 
+            maven-{{checksum "pom.xml"}}
+          expire: 1d
+  
+  pull_and_push:
+    docker: 
+      -image: google/cloud-sdk:latest
+    steps:
+      - setup_remote_docker
       - run:
           name: Pull Container Image
           command: |
@@ -24,12 +37,12 @@ jobs:
       - run:
           name: Push Image to GCP Artifact Registry
           command: |
-            docker login -u _json_key -p ${GCP_ACCESS_TOKEN} https://asia-northeast1-docker.pkg.dev/test-circleci-421201
+            gcloud auth configure-docker asia-northeast1-docker.pkg.dev
             docker tag ghcr.io/${GITHUB_USER}/hello-app-spring  asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
             docker push asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: 
-            maven-{{checksum "pom.xml"}}
-          expire: 1d
+
+workflows: 
+  sample_workflow:
+    jobs:
+      - build_and_push
+      - pull_and_push
