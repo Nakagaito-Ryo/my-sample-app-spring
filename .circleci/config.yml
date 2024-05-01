@@ -50,11 +50,7 @@ jobs:
             --project test-circleci-421201 \
             --image asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring \
             --port 8080 \
-            --region asia-northeast1 \
-            --platform=managed \
-            --allow-unauthenticated \
-            --quiet \
-            --set-env-vars=ENV=PRODUCTION
+            --region asia-northeast1
 
 workflows: 
   sample_workflow:
