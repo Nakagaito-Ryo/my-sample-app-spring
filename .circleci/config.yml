@@ -36,11 +36,16 @@ jobs:
             docker pull ghcr.io/${GITHUB_USER}/hello-app-spring
             docker image ls
       - run:
-          name: Push Image to GCP Artifact Registry
+          name: Setup Google Cloud
           command: |
             echo ${GCP_KEY_FILE} > ./gcp_key.json
             gcloud auth activate-service-account --key-file=./gcp_key.json
-            gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+      - run:
+          name: Configure Docker
+          command: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+      - run:
+          name: Push Image to GCP Artifact Registry
+          command: |
             docker tag ghcr.io/${GITHUB_USER}/hello-app-spring  asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
             docker push asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
       - run:
