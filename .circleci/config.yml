@@ -29,7 +29,7 @@ jobs:
       - image: google/cloud-sdk:latest
         auth:
           username: _json_key
-          password: ${GCP_KEY_FILE}
+          password: $GCP_KEY_FILE
     steps:
       - setup_remote_docker
       - run:
