@@ -27,9 +27,6 @@ jobs:
   deploy_to_gcp:
     docker: 
       - image: google/cloud-sdk:latest
-        auth:
-          username: _json_key
-          password: $GCP_KEY_FILE
     steps:
       - setup_remote_docker
       - run:
@@ -41,8 +38,8 @@ jobs:
       - run:
           name: Push Image to GCP Artifact Registry
           command: |
-            # echo ${GCP_KEY_FILE} > ./gcp_key.json
-            # gcloud auth activate-service-account --key-file=./gcp_key.json
+            echo ${GCP_KEY_FILE} > ./gcp_key.json
+            gcloud auth activate-service-account --key-file=./gcp_key.json
             gcloud auth configure-docker asia-northeast1-docker.pkg.dev
             docker tag ghcr.io/${GITHUB_USER}/hello-app-spring  asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
             docker push asia-northeast1-docker.pkg.dev/test-circleci-421201/test-docker/hello-app-spring
