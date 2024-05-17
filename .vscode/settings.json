@@ -1,0 +1,16 @@
+{
+    "circleci.persistedProjectSelection": [
+        "circleci/Gc8fmCvsKRoNpBBzntdNu4/8YnznEnev6ToUJxvfLSuZy"
+    ],
+    "circleci.filters.branchFilter": "allBranches",
+    "editor.renderWhitespace": "all",
+    "java.format.settings.url": "../../format/eclipse-java-google-style.xml",
+    "java.format.settings.profile": "GoogleStyle",
+    "java.checkstyle.configuration": "../../checkstyle/google_checks.xml",
+    "java.checkstyle.version": "10.16.0",
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "sonarlint.connectedMode.project": {
+        "connectionId": "http-localhost-9000",
+        "projectKey": "Sample"
+    }
+}
